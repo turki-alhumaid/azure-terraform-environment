@@ -3,7 +3,7 @@ locals {
 
   common_tags = {
     company_name = var.company_name
-    enviroment   = var.environment
+    environment  = var.environment
     managed_by   = "terraform"
   }
 }
