@@ -34,3 +34,19 @@ variable "admin_source_cidr" {
   description = "the public ip allowed to SSH into the 'jump' Vm"
   type        = string
 }
+
+variable "admin_username" {
+  description = "the admin username"
+  type        = string
+}
+
+variable "ssh_public_key_path" {
+  description = "ssh public key path"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "the vm sku for deployment"
+  type        = string
+
+}
