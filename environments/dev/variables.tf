@@ -36,17 +36,16 @@ variable "admin_source_cidr" {
 }
 
 variable "admin_username" {
-  description = "the admin username"
+  description = "The local administrator username assigned to all Azure virtual machines"
   type        = string
 }
 
 variable "ssh_public_key_path" {
-  description = "ssh public key path"
+  description = "The local file path to the SSH public key used for VM authentication"
   type        = string
 }
 
 variable "vm_size" {
-  description = "the vm sku for deployment"
+  description = "The Azure Virtual Machine size SKU used for the deployed instances"
   type        = string
-
 }
