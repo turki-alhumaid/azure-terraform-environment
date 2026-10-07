@@ -6,4 +6,11 @@ locals {
     environment  = var.environment
     managed_by   = "terraform"
   }
+
+  vm_image = {
+    publisher = "Canonical"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
+    version   = "latest"
+  }
 }

@@ -23,3 +23,34 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
+resource "azurerm_linux_virtual_machine" "main" {
+  for_each              = var.subnets
+  name                  = "vm-${local.name_prefix}-${each.key}"
+  location              = azurerm_resource_group.main["compute"].location
+  resource_group_name   = azurerm_resource_group.main["compute"].name
+  size                  = var.vm_size
+  admin_username        = var.admin_username
+  network_interface_ids = [azurerm_network_interface.main[each.key].id]
+  tags                  = local.common_tags
+
+
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = file(var.ssh_public_key_path)
+  }
+
+  os_disk {
+    name                 = "osdisk-${local.name_prefix}-${each.key}"
+    caching              = "ReadWrite"
+    storage_account_type = "StandardSSD_LRS"
+  }
+
+  source_image_reference {
+    publisher = local.vm_image.publisher
+    offer     = local.vm_image.offer
+    sku       = local.vm_image.sku
+    version   = local.vm_image.version
+  }
+
+}
+
