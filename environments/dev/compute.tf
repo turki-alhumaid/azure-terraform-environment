@@ -33,6 +33,8 @@ resource "azurerm_linux_virtual_machine" "main" {
   network_interface_ids = [azurerm_network_interface.main[each.key].id]
   tags                  = local.common_tags
 
+  custom_data = filebase64("${path.module}/cloud-init/${each.key}.yaml")
+
 
   admin_ssh_key {
     username   = var.admin_username

@@ -1,0 +1,7 @@
+#cloud-config
+package_update: true
+packages:
+  - fail2ban
+write_files:
+  - path: /etc/az-infra-role
+    content: "jump\n"
