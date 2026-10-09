@@ -55,3 +55,17 @@ resource "azurerm_network_security_rule" "deny_vnet_inbound" {
   resource_group_name         = azurerm_resource_group.main["network"].name
   network_security_group_name = azurerm_network_security_group.main[each.key].name
 }
+
+resource "azurerm_network_security_rule" "data_postgres_from_app" {
+  name                        = "allow-postgres-from-app"
+  priority                    = 110
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5432"
+  source_address_prefix       = azurerm_subnet.main["app"].address_prefixes[0]
+  destination_address_prefix  = azurerm_subnet.main["data"].address_prefixes[0]
+  resource_group_name         = azurerm_resource_group.main["network"].name
+  network_security_group_name = azurerm_network_security_group.main["data"].name
+}
