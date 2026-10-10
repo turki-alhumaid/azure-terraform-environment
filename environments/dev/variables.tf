@@ -11,7 +11,6 @@ variable "environment" {
 variable "location" {
   description = "the location of the deployment"
   type        = string
-
 }
 
 variable "company_name" {
@@ -27,7 +26,6 @@ variable "vnet_address_space" {
 variable "subnets" {
   description = "the names and ip addresses slices for the Vnet"
   type        = map(string)
-
 }
 
 variable "admin_source_cidr" {

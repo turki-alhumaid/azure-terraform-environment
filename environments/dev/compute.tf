@@ -17,7 +17,7 @@ resource "azurerm_network_interface" "main" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.main[each.key].id
+    subnet_id                     = module.network.subnet_ids[each.key]
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = each.key == "jump" ? azurerm_public_ip.jump.id : null
   }
