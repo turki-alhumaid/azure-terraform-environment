@@ -17,3 +17,16 @@ module "network" {
   tags                = local.common_tags
   name_prefix         = local.name_prefix
 }
+
+module "compute" {
+  source              = "../../modules/compute"
+  resource_group_name = azurerm_resource_group.main["compute"].name
+  location            = azurerm_resource_group.main["compute"].location
+  name_prefix         = local.name_prefix
+  ssh_public_key      = file(var.ssh_public_key_path)
+  admin_username      = var.admin_username
+  tags                = local.common_tags
+  vm_size             = var.vm_size
+  vm_image            = local.vm_image
+  subnet_ids          = module.network.subnet_ids
+}
