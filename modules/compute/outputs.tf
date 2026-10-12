@@ -3,7 +3,7 @@ output "jump_public_ip" {
   value       = azurerm_public_ip.jump.ip_address
 }
 
-output "private_ip" {
+output "private_ips" {
   description = "The private IP addresses of the VMs."
   value       = { for key, v in azurerm_network_interface.main : key => v.private_ip_address }
 }
