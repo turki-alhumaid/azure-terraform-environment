@@ -30,3 +30,9 @@ module "compute" {
   vm_image            = local.vm_image
   subnet_ids          = module.network.subnet_ids
 }
+
+module "governance" {
+  source            = "../../modules/governance"
+  name_prefix       = local.name_prefix
+  allowed_locations = [var.location]
+}
