@@ -47,3 +47,8 @@ variable "vm_size" {
   description = "The Azure Virtual Machine size SKU used for the deployed instances"
   type        = string
 }
+
+variable "required_tags" {
+  description = "Tag names every resource group must have"
+  type        = list(string)
+}

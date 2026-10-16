@@ -35,4 +35,5 @@ module "governance" {
   source            = "../../modules/governance"
   name_prefix       = local.name_prefix
   allowed_locations = [var.location]
+  required_tags     = var.required_tags
 }

@@ -10,3 +10,5 @@ subnets = {
 admin_username      = "turkiadmin"
 ssh_public_key_path = "~/.ssh/az-infra-dev.pub"
 vm_size             = "Standard_B2ats_v2"
+
+required_tags = ["environment", "managed_by"]

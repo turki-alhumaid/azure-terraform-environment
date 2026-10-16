@@ -8,3 +8,7 @@ variable "allowed_locations" {
   type        = list(string)
 }
 
+variable "required_tags" {
+  description = "Tag names every resource group must have"
+  type        = list(string)
+}
