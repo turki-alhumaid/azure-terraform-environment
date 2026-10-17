@@ -32,8 +32,10 @@ module "compute" {
 }
 
 module "governance" {
-  source            = "../../modules/governance"
-  name_prefix       = local.name_prefix
-  allowed_locations = [var.location]
-  required_tags     = var.required_tags
+  source             = "../../modules/governance"
+  name_prefix        = local.name_prefix
+  allowed_locations  = [var.location]
+  required_tags      = var.required_tags
+  teams              = var.teams
+  resource_group_ids = { for key, rg in azurerm_resource_group.main : key => rg.id }
 }
