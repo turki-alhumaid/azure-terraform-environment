@@ -60,3 +60,8 @@ variable "teams" {
     scope = string
   }))
 }
+
+variable "extra_tags" {
+  description = "Environment-specific tags merged into common_tags. Cannot override company_name, environment or managed_by."
+  type        = map(string)
+}

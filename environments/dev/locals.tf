@@ -1,11 +1,14 @@
 locals {
   name_prefix = "${var.company_name}-${var.environment}"
 
-  common_tags = {
-    company_name = var.company_name
-    environment  = var.environment
-    managed_by   = "terraform"
-  }
+  common_tags = merge(
+    var.extra_tags,
+    {
+      company_name = var.company_name
+      environment  = var.environment
+      managed_by   = "terraform"
+    }
+  )
 
   vm_image = {
     publisher = "Canonical"

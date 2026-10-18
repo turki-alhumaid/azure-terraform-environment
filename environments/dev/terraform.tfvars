@@ -18,3 +18,8 @@ teams = {
   appops   = { role = "Virtual Machine Contributor", scope = "compute" }
   auditors = { role = "Reader", scope = "subscription" }
 }
+
+extra_tags = {
+  owner       = "platform-team"
+  cost_center = "cc-1001"
+}
