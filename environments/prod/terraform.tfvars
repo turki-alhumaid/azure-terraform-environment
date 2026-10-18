@@ -23,7 +23,3 @@ extra_tags = {
   owner       = "platform-team"
   cost_center = "cc-2001"
 }
-
-shutdown_time     = "0000"
-shutdown_timezone = "Arab Standard Time"
-shutdown_enabled  = false

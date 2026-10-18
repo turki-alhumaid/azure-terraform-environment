@@ -42,18 +42,3 @@ variable "vm_image" {
   description = "the image to use for the virtual machine"
   type        = map(string)
 }
-
-variable "shutdown_time" {
-  description = "Daily auto-shutdown time, 24-hour HHmm format."
-  type        = string
-}
-
-variable "shutdown_timezone" {
-  description = "Windows time zone ID for the shutdown schedule."
-  type        = string
-}
-
-variable "shutdown_enabled" {
-  description = "Whether the daily auto-shutdown schedule is active."
-  type        = bool
-}

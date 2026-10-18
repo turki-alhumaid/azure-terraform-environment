@@ -55,19 +55,3 @@ resource "azurerm_linux_virtual_machine" "main" {
   }
 }
 
-resource "azurerm_dev_test_global_vm_shutdown_schedule" "main" {
-  for_each = azurerm_linux_virtual_machine.main
-
-  virtual_machine_id    = each.value.id
-  location              = each.value.location
-  enabled               = var.shutdown_enabled
-  daily_recurrence_time = var.shutdown_time
-  timezone              = var.shutdown_timezone
-
-  notification_settings {
-    enabled = false
-  }
-
-  tags = var.tags
-}
-
