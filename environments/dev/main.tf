@@ -29,6 +29,9 @@ module "compute" {
   vm_size             = var.vm_size
   vm_image            = local.vm_image
   subnet_ids          = module.network.subnet_ids
+  shutdown_time       = var.shutdown_time
+  shutdown_timezone   = var.shutdown_timezone
+  shutdown_enabled    = var.shutdown_enabled
 }
 
 module "governance" {

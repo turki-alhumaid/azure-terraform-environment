@@ -1,0 +1,14 @@
+output "jump_public_ip" {
+  description = "The public IP address of the jump VM."
+  value       = module.compute.jump_public_ip
+}
+
+output "private_ips" {
+  description = "The private IP addresses of the VMs."
+  value       = { for key, v in module.compute.private_ips : key => v }
+}
+
+output "admin_username" {
+  description = "The admin username for the VMs."
+  value       = var.admin_username
+}

@@ -65,3 +65,23 @@ variable "extra_tags" {
   description = "Environment-specific tags merged into common_tags. Cannot override company_name, environment or managed_by."
   type        = map(string)
 }
+
+variable "shutdown_time" {
+  description = "Daily VM auto-shutdown time, 24-hour HHmm format (e.g. 2200)."
+  type        = string
+
+  validation {
+    condition     = can(regex("^([01][0-9]|2[0-3])[0-5][0-9]$", var.shutdown_time))
+    error_message = "shutdown_time must be HHmm in 24-hour format, for example 2200."
+  }
+}
+
+variable "shutdown_timezone" {
+  description = "Windows time zone ID for the shutdown schedule (e.g. Arab Standard Time)."
+  type        = string
+}
+
+variable "shutdown_enabled" {
+  description = "Whether the daily VM auto-shutdown schedule is active."
+  type        = bool
+}

@@ -1,0 +1,87 @@
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+
+  validation {
+    condition     = contains(["dev", "prod"], var.environment)
+    error_message = "enviroment must be dev or prod"
+  }
+}
+
+variable "location" {
+  description = "the location of the deployment"
+  type        = string
+}
+
+variable "company_name" {
+  description = "the name of the company"
+  type        = string
+}
+
+variable "vnet_address_space" {
+  description = "the CIDR block for the virtual network"
+  type        = list(string)
+}
+
+variable "subnets" {
+  description = "the names and ip addresses slices for the Vnet"
+  type        = map(string)
+}
+
+variable "admin_source_cidr" {
+  description = "the public ip allowed to SSH into the 'jump' Vm"
+  type        = string
+}
+
+variable "admin_username" {
+  description = "The local administrator username assigned to all Azure virtual machines"
+  type        = string
+}
+
+variable "ssh_public_key_path" {
+  description = "The local file path to the SSH public key used for VM authentication"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "The Azure Virtual Machine size SKU used for the deployed instances"
+  type        = string
+}
+
+variable "required_tags" {
+  description = "Tag names every resource group must have"
+  type        = list(string)
+}
+
+variable "teams" {
+  description = "Team name to the role and scope key it gets"
+  type = map(object({
+    role  = string
+    scope = string
+  }))
+}
+
+variable "extra_tags" {
+  description = "Environment-specific tags merged into common_tags. Cannot override company_name, environment or managed_by."
+  type        = map(string)
+}
+
+variable "shutdown_time" {
+  description = "Daily VM auto-shutdown time, 24-hour HHmm format (e.g. 2200)."
+  type        = string
+
+  validation {
+    condition     = can(regex("^([01][0-9]|2[0-3])[0-5][0-9]$", var.shutdown_time))
+    error_message = "shutdown_time must be HHmm in 24-hour format, for example 2200."
+  }
+}
+
+variable "shutdown_timezone" {
+  description = "Windows time zone ID for the shutdown schedule (e.g. Arab Standard Time)."
+  type        = string
+}
+
+variable "shutdown_enabled" {
+  description = "Whether the daily VM auto-shutdown schedule is active."
+  type        = bool
+}
