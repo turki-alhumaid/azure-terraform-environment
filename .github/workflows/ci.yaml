@@ -49,6 +49,12 @@ jobs:
         run: tflint --init
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      
+      - name: Create Temporary SSH keys for tflint
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keygen -t ed25519 -f ~/.ssh/az-infra-dev -N "" -q
+          ssh-keygen -t ed25519 -f ~/.ssh/az-infra-prod -N "" -q
 
       - name: Run TFLint
         run: tflint --recursive --config "$GITHUB_WORKSPACE/.tflint.hcl"
