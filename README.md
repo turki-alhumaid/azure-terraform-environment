@@ -1,4 +1,4 @@
-# Azure environment with Terraform _(azure-terraform-environment)_
+# Azure environment with Terraform
 
 Terraform for a fictional company's Azure environment: networking, VMs, governance and CI, split into dev and prod.
 
@@ -12,10 +12,7 @@ The project runs on an **Azure for Students** subscription, which shapes several
 
 Three Ubuntu VMs sit in three subnets of one virtual network. Only the jump VM is reachable from the internet, and only over SSH from the administrator's IP address. Inside the network, only three paths are open: jump to app and data over SSH, and app to data over PostgreSQL.
 
-Names in this section are for dev. Prod uses the same names with `prod` in place of `dev`. The diagrams show the network and traffic paths, then every resource grouped by where it lives.
-
-<details>
-<summary>Show diagrams</summary>
+Names in this section are for dev. Prod uses the same names with `prod` in place of `dev`.
 
 **Network and traffic**
 
@@ -46,6 +43,9 @@ Names in this section are for dev. Prod uses the same names with `prod` in place
 | the VNet is denied.                                           |
 +---------------------------------------------------------------+
 ```
+
+<details>
+<summary><b>Show every resource, grouped by scope</b></summary>
 
 **Resources by scope**
 
@@ -177,7 +177,7 @@ tflint --recursive --config "$PWD\.tflint.hcl"
 ## Repository structure
 
 <details>
-<summary>Show file tree</summary>
+<summary><b>Show file tree</b></summary>
 
 ```
 azure-terraform-environment/
@@ -288,9 +288,10 @@ terraform destroy
 - **Separate SSH key per environment.** A leaked dev key gives no access to prod.
 - **Prod is plan-only.** The dev VMs use the full 6-vCPU quota, and the governance module creates subscription-wide policies and groups. Applying prod in the same subscription would need more quota and would duplicate subscription-level governance.
 - **Auto-shutdown removed.** I tried a shutdown schedule for the VMs, but the resource type (`Microsoft.DevTestLab/schedules`) isn't offered in `indiasouthcentral`, and my own location policy blocks other regions. Since then, I check a resource type's region availability before using it, not just its provider registration.
-- **No budget resource.** Azure for Students has a hard credit limit, and the subscription is disabled when credit runs out, and Education Hub already shows the remaining credit, so a budget alert would add little. Instead, everything is destroyed after every session.
+- **No budget resource.** Azure for Students has a hard credit limit, and the subscription is disabled when credit runs out, and Education Hub already shows the remaining credit, so a budget alert would add little. Instead, `dev` is destroyed after every session.
 
 ## What I'd do differently in production
+
 - **Azure Bastion instead of a public jump VM.** No VM would need a public IP or an open SSH port.
 - **Budgets per subscription.** A Cost Management budget alerting the team named in the `owner` tag, with the `cost_center` tag driving cost allocation.
 - **Auto-shutdown that works in the region.** A scheduled Azure Automation job, or a region that supports shutdown schedules.
